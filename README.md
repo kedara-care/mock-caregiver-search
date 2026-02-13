@@ -1,16 +1,23 @@
-# React + Vite
+# Mock Caregiver Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An automated demo showcasing Kedara's AI-powered caregiver search and screening process.
 
-Currently, two official plugins are available:
+## How to Use
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Open `chatbot.html` in your browser
+2. Ask the bot to find a caregiver for Silvia with experience in memory care, who can visit her twice a week
+3. The bot will redirect you to a Care.com-style caregiver search page and automatically:
+   - Search for caregivers by care need and zipcode
+   - Filter results by hourly rate and condition experience
+   - Rank and refine the best matches
+   - Open caregiver profiles and conduct automated screening chats
+   - Record screening notes
+4. Once screening is complete, you'll be redirected back to the chatbot with a scheduled interview confirmation
 
-## React Compiler
+You can also append `?auto_run=true` to `index.html` to run the caregiver search automation directly.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Files
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **`chatbot.html`** — Kedara chatbot interface (start here)
+- **`index.html`** — Care.com-style caregiver search and screening page
+- **`kedara-logo-flat-B1ZVLt9o.svg`** — Kedara logo
