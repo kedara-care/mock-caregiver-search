@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Care.com - Find Senior Caregivers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    .highlight-input {
+      border: 2px solid #2ecc71 !important;
+      box-shadow: 0 0 12px rgba(46, 204, 113, 0.5) !important;
+      transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #faf9f7;
+      color: #1a1a2e;
+      line-height: 1.5;
+    }
+
+    /* ===== HEADER - Care.com style ===== */
+    .site-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e8e6e1;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .site-logo {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+    }
+
+    .logo-care {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-dot {
+      font-size: 28px;
+      font-weight: 800;
+      color: #d5433b;
+    }
+
+    .logo-com {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .header-nav a {
+      text-decoration: none;
+      color: #4a4a5a;
+      font-weight: 500;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .header-nav a:hover {
+      color: #d5433b;
+    }
+
+    .header-nav .nav-btn {
+      background: #d5433b;
+      color: #fff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 24px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .header-nav .nav-btn:hover {
+      background: #b83832;
+    }
+
+    /* ===== APP CONTAINER ===== */
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+
+    /* ===== HERO LANDING ===== */
+    .hero {
+      background: linear-gradient(135deg, #fef3f0 0%, #fce8e3 40%, #f0e6f6 100%);
+      border-radius: 24px;
+      padding: 48px 40px;
+      margin-top: 24px;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -40px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(213, 67, 59, 0.08) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #5a5a6e;
+      margin-bottom: 28px;
+      max-width: 480px;
+    }
+
+    .search-form {
+      display: grid;
+      gap: 18px;
+      max-width: 440px;
+    }
+
+    .form-group {
+      display: grid;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4a4a5a;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      border: 1.5px solid #d4d2cd;
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fff;
+      font-size: 15px;
+      color: #1a1a2e;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #d5433b;
+      box-shadow: 0 0 0 3px rgba(213, 67, 59, 0.1);
+    }
+
+    textarea {
+      min-height: 200px;
+      width: 100%;
+      resize: vertical;
+    }
+
+    button {
+      font-family: inherit;
+      border: 0;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #d5433b;
+      color: #fff;
+      padding: 13px 28px;
+      border-radius: 28px;
+      font-size: 15px;
+      box-shadow: 0 2px 8px rgba(213, 67, 59, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: #b83832;
+      box-shadow: 0 4px 16px rgba(213, 67, 59, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled {
+      background: #c4c0b8;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-ghost {
+      background: #f3f1ec;
+      color: #4a4a5a;
+      padding: 9px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .btn-ghost:hover {
+      background: #e8e5de;
+    }
+
+    /* ===== SECTION CARDS ===== */
+    .section-card {
+      background: #fff;
+      border: 1px solid #e8e6e1;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      margin-top: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      letter-spacing: -0.3px;
+    }
+
+    /* ===== FILTERS ===== */
+    .filters {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      background: #f3f1ec;
+      color: #4a4a5a;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: #e8e5de;
+    }
+
+    .chip.active {
+      background: #d5433b;
+      color: #fff;
+    }
+
+    .filter-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4a4a5a;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    /* ===== CAREGIVER GRID ===== */
+    .grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    /* ===== CAREGIVER CARD - Care.com style ===== */
+    .caregiver-card {
+      border: 1px solid #e8e6e1;
+      border-radius: 16px;
+      padding: 20px;
+      background: #fff;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .caregiver-card:hover {
+      border-color: #d5433b;
+      box-shadow: 0 4px 20px rgba(213, 67, 59, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .card-top {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #fce8e3, #f0e6f6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 18px;
+      color: #d5433b;
+      flex-shrink: 0;
+    }
+
+    .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .card-info h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 2px;
+    }
+
+    .card-info .subtitle {
+      font-size: 13px;
+      color: #7a7a8e;
+      margin-bottom: 4px;
+    }
+
+    .stars {
+      color: #f0a830;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .card-details {
+      font-size: 13px;
+      color: #5a5a6e;
+      margin-bottom: 4px;
+      line-height: 1.6;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background: #f3f1ec;
+      color: #5a5a6e;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .row-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .match {
+      background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+      color: #2e7d32;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .card-btn {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      background: #fff;
+      color: #d5433b;
+      border: 1.5px solid #d5433b;
+      padding: 10px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .card-btn:hover {
+      background: #d5433b;
+      color: #fff;
+    }
+
+    .actions {
+      margin-top: 24px;
+      text-align: center;
+    }
+
+    /* ===== PROFILE VIEW ===== */
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .profile-panel,
+    .chat-panel {
+      border: 1px solid #e8e6e1;
+      border-radius: 16px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .profile-panel h3,
+    .chat-panel h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0eeea;
+    }
+
+    .profile-detail {
+      font-size: 14px;
+      color: #5a5a6e;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .profile-detail strong {
+      color: #1a1a2e;
+    }
+
+    .screening-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    /* ===== CHAT MESSAGES ===== */
+    .messages {
+      border: 1px solid #e8e6e1;
+      border-radius: 14px;
+      background: #faf9f7;
+      min-height: 260px;
+      max-height: 360px;
+      overflow: auto;
+      padding: 14px;
+    }
+
+    .message {
+      margin: 10px 0;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.you {
+      background: #eef1ff;
+      border-top-right-radius: 4px;
+    }
+
+    .message.bot {
+      background: #fff;
+      border: 1px solid #e8e6e1;
+      border-top-left-radius: 4px;
+    }
+
+    .message strong {
+      font-weight: 600;
+      color: #1a1a2e;
+    }
+
+    .placeholder {
+      color: #9a9aae;
+      margin: 0;
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 32px 24px;
+      }
+
+      .hero h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Care.com style header -->
+  <header class="site-header">
+    <a class="site-logo" href="#">
+      <span class="logo-care">Care</span><span class="logo-dot">.</span><span class="logo-com">com</span>
+    </a>
+    <nav class="header-nav">
+      <a href="#">Find caregivers</a>
+      <a href="#">Senior care</a>
+      <a href="#">How it works</a>
+      <span class="nav-btn">Join now</span>
+    </nav>
+  </header>
+
+  <div id="app"></div>
+  <script>
+    const SENIOR_CARE_NEEDS = ["Companionship", "Post-surgery support", "Mobility assistance", "Medication reminders", "Memory care"];
+    const CONDITIONS = ["Dementia", "Parkinson's", "Diabetes", "Stroke recovery", "Arthritis", "Alzheimer's"];
+    const BACKGROUNDS = [
+      "Certified Nursing Assistant", "Home Health Aide", "Registered Nurse", "Occupational Therapy Assistant",
+      "Medical Assistant", "Gerontology Student", "Hospice Volunteer", "Family Care Specialist"
+    ];
+    const CAPABILITIES = [
+      "Meal prep", "Transportation", "Light housekeeping", "Medication management", "Bathing & hygiene",
+      "Mobility transfer support", "Companionship activities", "Vitals monitoring", "Overnight care"
+    ];
+    const CITIES = ["San Jose", "Santa Clara", "Sunnyvale", "Cupertino", "Campbell", "Los Gatos", "Mountain View", "Milpitas", "Palo Alto", "Saratoga"];
+    const FIRST_NAMES = ["Ava", "Noah", "Olivia", "Liam", "Emma", "Mason", "Sophia", "Lucas", "Isabella", "Ethan", "Mia", "Benjamin", "Amelia", "Daniel", "Harper", "Elijah", "Charlotte", "James", "Evelyn", "Logan"];
+    const LAST_NAMES = ["Rivera", "Chen", "Patel", "Nguyen", "Smith", "Kim", "Martinez", "Lopez", "Walker", "Singh", "Brown", "Johnson", "Garcia", "Thompson", "Anderson", "Wilson", "Wright", "Hernandez", "Lee", "Clark"];
+
+    const state = {
+      step: "landing",
+      searchNeed: SENIOR_CARE_NEEDS[0],
+      zipcode: "",
+      maxRate: 40,
+      selectedConditions: [],
+      selectedCaregiverId: null,
+      screeningNotes: "",
+      chatByCaregiver: {},
+      demoRunning: false,
+      runId: 0,
+      highlightedId: null,
+      highlightedCondition: null,
+      highlightedCaregiverId: null
+    };
+
+    function seeded(index, max) { return (index * 37 + 19) % max; }
+    function formatZip(baseZip, delta) {
+      const zip = Number.parseInt(baseZip || "18901", 10);
+      const safe = Number.isNaN(zip) ? 18901 : zip;
+      return String(Math.max(10000, Math.min(99999, safe + delta))).padStart(5, "0");
+    }
+    function buildCaregivers(baseZip) {
+      return Array.from({ length: 100 }, (_, idx) => {
+        const id = idx + 1;
+        const first = FIRST_NAMES[seeded(idx + 1, FIRST_NAMES.length)];
+        const last = LAST_NAMES[seeded(idx + 3, LAST_NAMES.length)];
+        const background = BACKGROUNDS[seeded(idx + 5, BACKGROUNDS.length)];
+        const city = CITIES[seeded(idx + 7, CITIES.length)];
+        const conditionStart = seeded(idx + 2, CONDITIONS.length);
+        const conditionCount = 2 + (idx % 3);
+        const conditions = Array.from({ length: conditionCount }, (_, cIdx) => CONDITIONS[(conditionStart + cIdx) % CONDITIONS.length]);
+        const capabilityStart = seeded(idx + 8, CAPABILITIES.length);
+        const capabilityCount = 3 + (idx % 4);
+        const capabilities = Array.from({ length: capabilityCount }, (_, cIdx) => CAPABILITIES[(capabilityStart + cIdx) % CAPABILITIES.length]);
+        const yearsExperience = 2 + (idx % 17);
+        const hourlyRate = 20 + (idx % 16);
+        const distanceMiles = Number((1.2 + (idx % 24) * 0.8).toFixed(1));
+        const zipcode = formatZip(baseZip, (idx % 25) - 12);
+        const availability = idx % 4 === 0
+          ? "Weekdays, mornings and afternoons"
+          : idx % 4 === 1
+            ? "Tue/Thu + occasional weekends"
+            : idx % 4 === 2
+              ? "Flexible, 2-3 days per week"
+              : "Mon/Wed/Fri with evening options";
+        return {
+          id, fullName: first + " " + last, firstName: first, lastName: last,
+          age: 24 + (idx % 31), rating: Number((4.2 + (idx % 8) * 0.1).toFixed(1)),
+          hourlyRate, yearsExperience, background, city, zipcode, distanceMiles, conditions, capabilities, availability,
+          bio: first + " has " + yearsExperience + " years supporting seniors and focuses on " + conditions.join(", ").toLowerCase() + "."
+        };
+      });
+    }
+    function computeMatch(caregiver, searchNeed, selectedConditions) {
+      let score = 45;
+      if (searchNeed.toLowerCase().includes("memory") && caregiver.conditions.some((c) => c === "Dementia" || c === "Alzheimer's")) score += 25;
+      if (searchNeed.toLowerCase().includes("mobility") && caregiver.capabilities.includes("Mobility transfer support")) score += 18;
+      score += selectedConditions.filter((c) => caregiver.conditions.includes(c)).length * 10;
+      if (caregiver.yearsExperience >= 8) score += 8;
+      if (caregiver.rating >= 4.8) score += 5;
+      return Math.min(99, score);
+    }
+
+    function getStars(rating) {
+      const full = Math.floor(rating);
+      const half = rating - full >= 0.5;
+      let s = "★".repeat(full);
+      if (half) s += "½";
+      return s + " " + rating;
+    }
+
+    function getInitials(name) {
+      return name.split(" ").map(n => n[0]).join("").toUpperCase();
+    }
+
+    function waitStep() { return new Promise((resolve) => window.setTimeout(resolve, 2000)); }
+    function scrollToBottom() { window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }); }
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: "smooth" }); }
+
+    function getDerived() {
+      const caregivers = buildCaregivers(state.zipcode);
+      const filtered = caregivers.filter((c) => {
+        const ratePass = c.hourlyRate <= state.maxRate;
+        const condPass = state.selectedConditions.length === 0 || state.selectedConditions.every((cond) => c.conditions.includes(cond));
+        return ratePass && condPass;
+      });
+      const ranked = filtered
+        .map((c) => ({ ...c, matchScore: computeMatch(c, state.searchNeed, state.selectedConditions) }))
+        .sort((a, b) => b.matchScore - a.matchScore);
+      const selected = ranked.find((c) => c.id === state.selectedCaregiverId) || null;
+      return { caregivers, filtered, ranked, selected };
+    }
+
+    function setState(patch) {
+      Object.assign(state, patch);
+      render();
+    }
+    function addMessage(caregiverId, sender, text) {
+      const existing = state.chatByCaregiver[caregiverId] || [];
+      state.chatByCaregiver[caregiverId] = existing.concat([{ sender, text }]);
+      render();
+    }
+    function toggleCondition(condition) {
+      const has = state.selectedConditions.includes(condition);
+      setState({
+        selectedConditions: has
+          ? state.selectedConditions.filter((c) => c !== condition)
+          : state.selectedConditions.concat([condition])
+      });
+    }
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
+    }
+
+    async function runSilviaAutomationDemo() {
+      if (state.demoRunning) return;
+      const runId = state.runId + 1;
+      setState({
+        demoRunning: true, runId,
+        chatByCaregiver: {}, selectedCaregiverId: null,
+        screeningNotes: "", step: "landing"
+      });
+
+      const active = () => state.runId === runId;
+      const stepDelay = async () => {
+        if (!active()) return false;
+        await waitStep();
+        if (state.highlightedId || state.highlightedCondition || state.highlightedCaregiverId) {
+          setState({ highlightedId: null, highlightedCondition: null, highlightedCaregiverId: null });
+        }
+        return active();
+      };
+      const highlight = async (id, condition) => {
+        setState({ highlightedId: id || null, highlightedCondition: condition || null });
+        await new Promise(r => setTimeout(r, 400));
+      };
+
+      if (!(await stepDelay())) return;
+
+      await highlight("searchNeedSelect");
+      setState({ searchNeed: "Memory care" });
+
+      if (!(await stepDelay())) return;
+
+      await highlight("zipcodeInput");
+      setState({ zipcode: "18901" });
+
+      if (!(await stepDelay())) return;
+      setState({ step: "results" });
+
+      if (!(await stepDelay())) return;
+      scrollToBottom();
+
+      if (!(await stepDelay())) return;
+      scrollToTop();
+
+      if (!(await stepDelay())) return;
+      await highlight("maxRateSelect");
+      setState({ maxRate: 30 });
+
+      if (!(await stepDelay())) return;
+      await highlight(null, "Dementia");
+      setState({ selectedConditions: ["Dementia"] });
+
+      if (!(await stepDelay())) return;
+      setState({ step: "refined" });
+
+      if (!(await stepDelay())) return;
+
+      const simulatedRanked = buildCaregivers("18901")
+        .filter((c) => c.hourlyRate <= 30 && c.conditions.includes("Dementia"))
+        .map((c) => ({ ...c, matchScore: computeMatch(c, "Memory care", ["Dementia"]) }))
+        .sort((a, b) => b.matchScore - a.matchScore);
+      const first = simulatedRanked[0];
+      const second = simulatedRanked[1];
+      if (!first || !second) { setState({ demoRunning: false }); return; }
+
+      // Highlight first caregiver card in refined view before opening profile
+      setState({ highlightedCaregiverId: first.id });
+      if (!(await stepDelay())) return;
+
+      setState({ selectedCaregiverId: first.id, step: "profile" });
+      if (!(await stepDelay())) return;
+      addMessage(first.id, "Kedara", "Hi! Are you available to care for Silvia two days per week?");
+      if (!(await stepDelay())) return;
+      addMessage(first.id, first.fullName, "Thanks for reaching out. I am currently employed full-time and not available for a new position.");
+      if (!(await stepDelay())) return;
+      addMessage(first.id, "Kedara", "Thank you for your time and attention. We appreciate your response and wish you all the best. Goodbye.");
+
+      if (!(await stepDelay())) return;
+      await highlight("screeningNotesInput");
+      setState({ screeningNotes: "First ranked caregiver is currently employed and unavailable. Moving to the next match." });
+
+      if (!(await stepDelay())) return;
+
+      // Go back to refined view and highlight second caregiver card
+      setState({ step: "refined" });
+      if (!(await stepDelay())) return;
+      setState({ highlightedCaregiverId: second.id });
+      if (!(await stepDelay())) return;
+
+      setState({ selectedCaregiverId: second.id, step: "profile" });
+      if (!(await stepDelay())) return;
+      addMessage(second.id, "Kedara", "Hi! Are you available for ongoing care for Silvia two days per week?");
+      if (!(await stepDelay())) return;
+      addMessage(second.id, second.fullName, "Yes, I have availability on weekdays and I am interested in interviewing for Silvia.");
+      if (!(await stepDelay())) return;
+      addMessage(second.id, "Kedara", "Great. We would like to schedule an interview and email you the details this afternoon.");
+      if (!(await stepDelay())) return;
+      addMessage(second.id, second.fullName, "That sounds perfect. Please send the interview details by email and I will confirm right away.");
+
+      if (!(await stepDelay())) return;
+      await highlight("screeningNotesInput");
+      setState({
+        screeningNotes: "Second caregiver (" + second.fullName + ") is available and interested. Next step: schedule interview and email you the details.",
+        demoRunning: false
+      });
+
+      // Redirect back to chatbot with success outcome
+      await stepDelay();
+      const params = new URLSearchParams();
+      params.set("outcome", "success");
+      params.set("caregiver_name", second.fullName);
+      window.location.href = "chatbot.html?" + params.toString();
+    }
+
+    function render() {
+      const app = document.getElementById("app");
+      const { filtered, ranked, selected } = getDerived();
+      const messages = selected ? (state.chatByCaregiver[selected.id] || []) : [];
+
+      const conditionChips = CONDITIONS.map((condition) => (
+        "<button type=\"button\" class=\"chip " + (state.selectedConditions.includes(condition) ? "active" : "") + (state.highlightedCondition === condition ? " highlight-input" : "") + "\" data-condition=\"" + escapeHtml(condition) + "\">" + escapeHtml(condition) + "</button>"
+      )).join("");
+
+      const resultCards = filtered.map((c) => (
+        "<article class=\"caregiver-card\">" +
+        "<div class=\"card-top\">" +
+        "<div class=\"avatar\">" + getInitials(c.fullName) + "</div>" +
+        "<div class=\"card-info\">" +
+        "<h3>" + escapeHtml(c.fullName) + "</h3>" +
+        "<div class=\"subtitle\">" + escapeHtml(c.background) + "</div>" +
+        "<div class=\"stars\">" + getStars(c.rating) + "</div>" +
+        "</div></div>" +
+        "<p class=\"card-details\">$" + c.hourlyRate + "/hr · " + escapeHtml(c.city) + " · " + c.distanceMiles + " mi away</p>" +
+        "<div class=\"card-tags\">" + c.conditions.map(cond => "<span class=\"tag\">" + escapeHtml(cond) + "</span>").join("") + "</div>" +
+        "</article>"
+      )).join("");
+
+      const refinedCards = ranked.map((c) => (
+        "<article class=\"caregiver-card" + (state.highlightedCaregiverId === c.id ? " highlight-input" : "") + "\">" +
+        "<div class=\"card-top\">" +
+        "<div class=\"avatar\">" + getInitials(c.fullName) + "</div>" +
+        "<div class=\"card-info\">" +
+        "<div class=\"row-between\">" +
+        "<h3>" + escapeHtml(c.fullName) + "</h3>" +
+        "<span class=\"match\">" + c.matchScore + "% match</span>" +
+        "</div>" +
+        "<div class=\"subtitle\">" + c.yearsExperience + " yrs exp · $" + c.hourlyRate + "/hr</div>" +
+        "<div class=\"stars\">" + getStars(c.rating) + "</div>" +
+        "</div></div>" +
+        "<p class=\"card-details\">" + escapeHtml(c.bio) + "</p>" +
+        "<div class=\"card-tags\">" + c.conditions.map(cond => "<span class=\"tag\">" + escapeHtml(cond) + "</span>").join("") + "</div>" +
+        "<button type=\"button\" class=\"card-btn\" data-open-profile=\"" + c.id + "\">View profile & chat</button>" +
+        "</article>"
+      )).join("");
+
+      const chatHtml = messages.length === 0
+        ? "<p class=\"placeholder\">The automation will ask about availability when this caregiver is selected.</p>"
+        : messages.map((m) => (
+          "<div class=\"message " + (m.sender === "Kedara" ? "you" : "bot") + "\"><strong>" +
+          escapeHtml(m.sender) + ":</strong> " + escapeHtml(m.text) + "</div>"
+        )).join("");
+
+      app.innerHTML =
+        "<div class=\"app-shell\">" +
+
+        (state.step === "landing"
+          ? "<section class=\"hero\">" +
+          "<h2>Find quality senior caregivers near you</h2>" +
+          "<p>One membership connects you with trusted, experienced caregivers in your area.</p>" +
+          "<form class=\"search-form\" id=\"searchForm\">" +
+          "<div class=\"form-group\">" +
+          "<label for=\"searchNeedSelect\">What type of care do you need?</label>" +
+          "<select id=\"searchNeedSelect\" class=\"" + (state.highlightedId === 'searchNeedSelect' ? 'highlight-input' : '') + "\">" +
+          SENIOR_CARE_NEEDS.map((need) => "<option value=\"" + escapeHtml(need) + "\" " + (state.searchNeed === need ? "selected" : "") + ">" + escapeHtml(need) + "</option>").join("") +
+          "</select>" +
+          "</div>" +
+          "<div class=\"form-group\">" +
+          "<label for=\"zipcodeInput\">Zipcode</label>" +
+          "<input id=\"zipcodeInput\" value=\"" + escapeHtml(state.zipcode) + "\" placeholder=\"e.g. 18901\" required class=\"" + (state.highlightedId === 'zipcodeInput' ? 'highlight-input' : '') + "\" />" +
+          "</div>" +
+          "<div class=\"button-row\">" +
+          "<button type=\"submit\" class=\"btn-primary\">Search caregivers</button>" +
+          "</div>" +
+          "</form>" +
+          "</section>"
+          : "") +
+
+        (state.step === "results"
+          ? "<section class=\"section-card\">" +
+          "<div class=\"section-header\"><h2>Caregivers near " + escapeHtml(state.zipcode || "18901") + "</h2><button class=\"btn-ghost\" id=\"editSearchBtn\">← Edit search</button></div>" +
+          "<div class=\"filters\">" +
+          "<div class=\"form-group\">" +
+          "<label for=\"maxRateSelect\">Max hourly rate</label>" +
+          "<select id=\"maxRateSelect\" class=\"" + (state.highlightedId === 'maxRateSelect' ? 'highlight-input' : '') + "\">" +
+          [25, 30, 35, 40].map((rate) => "<option value=\"" + rate + "\" " + (state.maxRate === rate ? "selected" : "") + ">Up to $" + rate + "/hr</option>").join("") +
+          "</select>" +
+          "</div>" +
+          "<div><span class=\"filter-label\">Condition experience</span><div class=\"chip-row\">" + conditionChips + "</div></div>" +
+          "</div>" +
+          "<div class=\"grid\">" + resultCards + "</div>" +
+          "<div class=\"actions\"><button class=\"btn-primary\" id=\"seeRefinedBtn\">See best matches →</button></div>" +
+          "</section>"
+          : "") +
+
+        (state.step === "refined"
+          ? "<section class=\"section-card\">" +
+          "<div class=\"section-header\"><h2>Best matches for " + escapeHtml(state.searchNeed) + "</h2><button class=\"btn-ghost\" id=\"backToFiltersBtn\">← Back to filters</button></div>" +
+          "<div class=\"grid\">" + refinedCards + "</div>" +
+          "</section>"
+          : "") +
+
+        (state.step === "profile" && selected
+          ? "<section class=\"section-card\">" +
+          "<div class=\"section-header\">" +
+          "<div style=\"display:flex;align-items:center;gap:14px\">" +
+          "<div class=\"avatar\" style=\"width:48px;height:48px;font-size:17px\">" + getInitials(selected.fullName) + "</div>" +
+          "<h2>" + escapeHtml(selected.fullName) + "</h2>" +
+          "</div>" +
+          "<button class=\"btn-ghost\" id=\"backToRefinedBtn\">← Back to matches</button></div>" +
+          "<div class=\"profile-layout\">" +
+          "<div class=\"profile-panel\">" +
+          "<h3>Profile details</h3>" +
+          "<p class=\"profile-detail\"><strong>Background:</strong> " + escapeHtml(selected.background) + "</p>" +
+          "<p class=\"profile-detail\"><strong>Age:</strong> " + selected.age + " · <strong>Rating:</strong> <span class=\"stars\">" + getStars(selected.rating) + "</span></p>" +
+          "<p class=\"profile-detail\"><strong>Location:</strong> " + escapeHtml(selected.city) + ", " + escapeHtml(selected.zipcode) + " · " + selected.distanceMiles + " miles away</p>" +
+          "<p class=\"profile-detail\"><strong>Rate:</strong> $" + selected.hourlyRate + "/hr · <strong>Availability:</strong> " + escapeHtml(selected.availability) + "</p>" +
+          "<p class=\"profile-detail\"><strong>Capabilities:</strong> " + escapeHtml(selected.capabilities.join(", ")) + "</p>" +
+          "<p class=\"profile-detail\"><strong>Condition experience:</strong> " + escapeHtml(selected.conditions.join(", ")) + "</p>" +
+          "<div class=\"screening-title\">Screening notes</div>" +
+          "<textarea id=\"screeningNotesInput\" placeholder=\"Track interview notes, concerns, and next steps...\" class=\"" + (state.highlightedId === 'screeningNotesInput' ? 'highlight-input' : '') + "\">" + escapeHtml(state.screeningNotes) + "</textarea>" +
+          "</div>" +
+          "<div class=\"chat-panel\">" +
+          "<h3>Chat with " + escapeHtml(selected.fullName) + "</h3>" +
+          "<div class=\"messages\">" + chatHtml + "</div>" +
+          "</div>" +
+          "</div>" +
+          "</section>"
+          : "") +
+        "</div>";
+
+      const searchForm = document.getElementById("searchForm");
+      if (searchForm) {
+        searchForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const z = document.getElementById("zipcodeInput").value.replace(/\D/g, "").slice(0, 5);
+          if (!z) return;
+          setState({ zipcode: z, step: "results" });
+        });
+        document.getElementById("searchNeedSelect").addEventListener("change", (event) => setState({ searchNeed: event.target.value }));
+        document.getElementById("zipcodeInput").addEventListener("input", (event) => {
+          event.target.value = event.target.value.replace(/\D/g, "").slice(0, 5);
+          state.zipcode = event.target.value;
+        });
+      }
+
+      const editSearchBtn = document.getElementById("editSearchBtn");
+      if (editSearchBtn) editSearchBtn.addEventListener("click", () => setState({ step: "landing" }));
+      const seeRefinedBtn = document.getElementById("seeRefinedBtn");
+      if (seeRefinedBtn) seeRefinedBtn.addEventListener("click", () => setState({ step: "refined" }));
+      const backToFiltersBtn = document.getElementById("backToFiltersBtn");
+      if (backToFiltersBtn) backToFiltersBtn.addEventListener("click", () => setState({ step: "results" }));
+      const backToRefinedBtn = document.getElementById("backToRefinedBtn");
+      if (backToRefinedBtn) backToRefinedBtn.addEventListener("click", () => setState({ step: "refined" }));
+
+      const maxRateSelect = document.getElementById("maxRateSelect");
+      if (maxRateSelect) maxRateSelect.addEventListener("change", (event) => setState({ maxRate: Number(event.target.value) }));
+
+      document.querySelectorAll("[data-condition]").forEach((btn) => {
+        btn.addEventListener("click", () => toggleCondition(btn.getAttribute("data-condition")));
+      });
+      document.querySelectorAll("[data-open-profile]").forEach((btn) => {
+        btn.addEventListener("click", () => setState({ selectedCaregiverId: Number(btn.getAttribute("data-open-profile")), step: "profile" }));
+      });
+
+      const screeningNotesInput = document.getElementById("screeningNotesInput");
+      if (screeningNotesInput) {
+        screeningNotesInput.addEventListener("input", (event) => {
+          state.screeningNotes = event.target.value;
+        });
+      }
+    }
+
+    render();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('auto_run') === 'true') {
+      setTimeout(runSilviaAutomationDemo, 500);
+    }
+  </script>
+</body>
+
+</html>

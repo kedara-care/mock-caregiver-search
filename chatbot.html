@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kedara Care Assistant</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* Header - matching kedara.care dark slate nav */
+        .header {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 10;
+            border-bottom: 1px solid rgba(20, 184, 166, 0.2);
+        }
+
+        .header-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            color: #f8fafc;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .header-subtitle {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        /* Chat container */
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Messages */
+        .message {
+            max-width: 80%;
+            padding: 14px 18px;
+            border-radius: 16px;
+            line-height: 1.6;
+            position: relative;
+            animation: fadeIn 0.4s ease-out;
+            font-size: 0.95rem;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #334155;
+            border-top-left-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #0d9488, #14b8a6);
+            color: white;
+            border-top-right-radius: 4px;
+            box-shadow: 0 2px 8px rgba(20, 184, 166, 0.25);
+        }
+
+        /* Input area */
+        .input-area {
+            background-color: #ffffff;
+            padding: 16px 24px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .input-wrapper {
+            max-width: 800px;
+            width: 100%;
+            display: flex;
+            gap: 12px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #cbd5e1;
+            border-radius: 24px;
+            outline: none;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #f8fafc;
+        }
+
+        input[type="text"]:focus {
+            border-color: #14b8a6;
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #0d9488, #14b8a6);
+            color: white;
+            border: none;
+            padding: 0 24px;
+            border-radius: 24px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #0f766e, #0d9488);
+            box-shadow: 0 2px 8px rgba(13, 148, 136, 0.3);
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: none;
+            gap: 5px;
+            padding: 14px 18px;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            border-top-left-radius: 4px;
+            align-self: flex-start;
+            width: fit-content;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #14b8a6;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: -0.32s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: -0.16s;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0);
+            }
+
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Redirect message */
+        .redirect-msg {
+            text-align: center;
+            color: #64748b;
+            margin-top: 16px;
+            font-style: italic;
+            animation: fadeIn 0.4s ease-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <img class="header-logo" src="kedara-logo-flat-B1ZVLt9o.svg" alt="Kedara" />
+        <div class="header-text">
+            <h1>Kedara</h1>
+            <span class="header-subtitle">Care Assistant</span>
+        </div>
+    </div>
+
+    <div class="chat-container" id="chatContainer">
+        <div class="message bot">
+            Hello! I'm Kedara, your personal care assistant. How can I help you today?
+        </div>
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <div class="input-wrapper">
+            <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off">
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatContainer = document.getElementById('chatContainer');
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        const TARGET_MESSAGE = "Kedara, please help me find a caregiver for Silvia. Make sure it is somebody that has experience with memory care, lives nearby and can help her twice a week";
+
+        let isDemoRunning = false;
+
+        function addMessage(text, isUser) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            msgDiv.textContent = text;
+            chatContainer.insertBefore(msgDiv, typingIndicator);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            typingIndicator.style.display = 'flex';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function hideTyping() {
+            typingIndicator.style.display = 'none';
+        }
+
+        async function handleSend() {
+            if (isDemoRunning) return;
+            const text = userInput.value.trim() || TARGET_MESSAGE;
+
+            userInput.value = '';
+            addMessage(text, true);
+            isDemoRunning = true;
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+
+            showTyping();
+
+            setTimeout(() => {
+                hideTyping();
+                const responseText = "I will perform a search for a caregiver on Care.com. I will notify you once I screen a few candidates for you to further interview.";
+                addMessage(responseText, false);
+
+                setTimeout(() => {
+                    const redirectMsg = document.createElement('div');
+                    redirectMsg.className = 'redirect-msg';
+                    redirectMsg.innerHTML = '<em>Redirecting to caregiver search...</em>';
+                    chatContainer.appendChild(redirectMsg);
+
+                    setTimeout(() => {
+                        window.location.href = 'index.html?auto_run=true';
+                    }, 1000);
+                }, 4000);
+
+            }, 1500);
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+
+        // Check for return from automation
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('outcome') === 'success') {
+            const caregiverName = urlParams.get('caregiver_name') || "the caregiver";
+
+            // Clear URL params so refresh starts fresh
+            window.history.replaceState({}, '', window.location.pathname);
+
+            // Reconstruct previous state to show context
+            addMessage(TARGET_MESSAGE, true);
+            addMessage("I will perform a search for a caregiver on Care.com. I will notify you once I screen a few candidates for you to further interview.", false);
+
+            // Disable input
+            userInput.disabled = true;
+            sendBtn.disabled = true;
+            isDemoRunning = true;
+
+            // Show new message arrival
+            setTimeout(() => {
+                showTyping();
+
+                setTimeout(() => {
+                    hideTyping();
+
+                    // Calculate date: Today + 2 days
+                    const date = new Date();
+                    date.setDate(date.getDate() + 2);
+                    const options = { weekday: 'long', month: 'long', day: 'numeric' };
+                    const dateString = date.toLocaleDateString('en-US', options);
+
+                    const finalMessage = `Interview scheduled for ${dateString} at 2:00-2:30 PM with ${caregiverName}.`;
+                    addMessage(finalMessage, false);
+
+                }, 1500);
+            }, 500);
+        }
+
+    </script>
+
+</body>
+
+</html>
